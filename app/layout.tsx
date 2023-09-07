@@ -30,7 +30,9 @@ export default function RootLayout({
             <div className="flex min-h-screen w-full flex-col items-center dark:bg-black">
               <Navbar />
               <Separator />
-              {children}
+              <main className="flex flex-grow w-full items-center justify-center dark:bg-neutral-950">
+                {children}
+              </main>
             </div>
           </ThemeProviders>
         </body>
