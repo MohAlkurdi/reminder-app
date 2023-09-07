@@ -2,6 +2,10 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Separator } from "@/components/ui/separator";
+import Navbar from "@/components/Navbar";
+import { ThemeProviders } from "@/providers/ThemeProvider";
+import { cn } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -16,8 +20,20 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body>{children}</body>
+      <html
+        lang="en"
+        className={cn(inter.className, "dark")}
+        style={{ colorScheme: "dark" }}
+      >
+        <body>
+          <ThemeProviders>
+            <div className="flex min-h-screen w-full flex-col items-center dark:bg-black">
+              <Navbar />
+              <Separator />
+              {children}
+            </div>
+          </ThemeProviders>
+        </body>
       </html>
     </ClerkProvider>
   );
