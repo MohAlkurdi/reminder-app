@@ -1,11 +1,11 @@
 "use client";
-import { Collection } from "@prisma/client";
+import { Collection, Task } from "@prisma/client";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "./ui/collapsible";
-import { useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { CollectionColor, CollectionColors } from "@/lib/constants";
@@ -30,16 +30,21 @@ import {
 import { deleteCollection } from "@/action/collection";
 import { toast } from "./ui/use-toast";
 import { useRouter } from "next/navigation";
+import CreateTaskDialog from "./CreateTaskDialog";
+import TaskCard from "./TaskCard";
 
 interface Props {
-  collection: Collection;
+  collection: Collection & {
+    tasks: Task[];
+  };
 }
-const tasks: string[] = ["Task one", "Task tow"];
 
 const CollectionCard = ({ collection }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const [isLoading, startTransition] = useTransition();
+  const tasks = collection.tasks;
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   const removeCollection = async () => {
     try {
@@ -55,8 +60,20 @@ const CollectionCard = ({ collection }: Props) => {
       });
     }
   };
+  const taskDone = useMemo(() => {
+    return collection.tasks.filter((task) => task.done).length;
+  }, [collection.tasks]);
+
+  const totalTasks = collection.tasks.length;
+
+  const progress = totalTasks === 0 ? 0 : (taskDone / totalTasks) * 100;
   return (
-    <div>
+    <>
+      <CreateTaskDialog
+        open={showCreateModal}
+        setOpen={setShowCreateModal}
+        collection={collection}
+      />
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <CollapsibleTrigger asChild>
           <Button
@@ -74,13 +91,27 @@ const CollectionCard = ({ collection }: Props) => {
         </CollapsibleTrigger>
         <CollapsibleContent className="flex rounded-b-md flex-col dark:bg-neutral-950 shadow-lg">
           {tasks.length === 0 ? (
-            <div>No Task</div>
+            <Button
+              variant={"ghost"}
+              className="flex items-center justify-center gap-1 p-8 py-12 rounded-none"
+              onClick={() => setShowCreateModal(true)}
+            >
+              <p>There are no task yet</p>
+              <span
+                className={cn(
+                  "text-sm bg-clip-text text-transparent",
+                  CollectionColors[collection.color as CollectionColor]
+                )}
+              >
+                Create One
+              </span>
+            </Button>
           ) : (
             <>
-              <Progress className="rounded-none" value={45} />
+              <Progress className="rounded-none" value={progress} />
               <div className="flex flex-col gap-3 p-4">
                 {tasks.map((task) => (
-                  <div key={task}>Mocked Task</div>
+                  <TaskCard key={task.id} task={task} />
                 ))}
               </div>
             </>
@@ -92,7 +123,11 @@ const CollectionCard = ({ collection }: Props) => {
               <div>Deleting ...</div>
             ) : (
               <div>
-                <Button size={"icon"} variant={"ghost"}>
+                <Button
+                  size={"icon"}
+                  variant={"ghost"}
+                  onClick={() => setShowCreateModal(true)}
+                >
                   <PlusIcon />
                 </Button>
                 <AlertDialog>
@@ -122,7 +157,7 @@ const CollectionCard = ({ collection }: Props) => {
           </footer>
         </CollapsibleContent>
       </Collapsible>
-    </div>
+    </>
   );
 };
 
