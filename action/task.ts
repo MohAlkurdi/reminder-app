@@ -44,3 +44,37 @@ export async function setTaskToDone(id: number) {
     },
   });
 }
+
+export async function deleteTask(id: number) {
+  const user = await currentUser();
+
+  if (!user) {
+    throw new Error("user not found");
+  }
+
+  return await prisma.task.delete({
+    where: {
+      id: id,
+      userId: user.id,
+    },
+  });
+}
+
+export async function updateTask(id: number, content: string, expiresAt: Date) {
+  const user = await currentUser();
+
+  if (!user) {
+    throw new Error("user not found");
+  }
+
+  return await prisma.task.update({
+    where: {
+      id: id,
+      userId: user.id,
+    },
+    data: {
+      content: content,
+      expiersAt: expiresAt,
+    },
+  });
+}
