@@ -27,12 +27,25 @@ export async function createTask(data: createTaskSchemaType) {
   });
 }
 
-export async function setTaskToDone(id: number) {
+export async function toggleTaskDoneStatus(id: number) {
   const user = await currentUser();
 
   if (!user) {
     throw new Error("user not found");
   }
+
+  const task = await prisma.task.findUnique({
+    where: {
+      id: id,
+      userId: user.id,
+    },
+  });
+
+  if (!task) {
+    throw new Error("Task not found");
+  }
+
+  const newDoneStatus = !task.done;
 
   return await prisma.task.update({
     where: {
@@ -40,7 +53,7 @@ export async function setTaskToDone(id: number) {
       userId: user.id,
     },
     data: {
-      done: true,
+      done: newDoneStatus,
     },
   });
 }

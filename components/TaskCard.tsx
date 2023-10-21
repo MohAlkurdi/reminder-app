@@ -4,7 +4,7 @@ import { Checkbox } from "./ui/checkbox";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { deleteTask, setTaskToDone, updateTask } from "@/action/task";
+import { deleteTask, toggleTaskDoneStatus } from "@/action/task";
 import { Button } from "./ui/button";
 import { EditIcon, TrashIcon } from "lucide-react";
 import { useState, useTransition } from "react";
@@ -54,10 +54,9 @@ function TaskCard({ task }: { task: Task }) {
           id={task.id.toString()}
           className="h-5 w-5"
           checked={task.done}
-          disabled={task.done || isLoading}
           onCheckedChange={() => {
             startTransition(async () => {
-              await setTaskToDone(task.id);
+              await toggleTaskDoneStatus(task.id);
               router.refresh();
             });
           }}
