@@ -86,7 +86,7 @@ const EditTaskDialog: React.FC<EditTaskDialogProps> = ({
         <div className="gap-4 py-4">
           <Form {...form}>
             <form
-              className="space-y-4 flex flex-col"
+              className="flex flex-col space-y-4"
               onSubmit={form.handleSubmit(onSubmit)}
             >
               <FormField
@@ -121,8 +121,8 @@ const EditTaskDialog: React.FC<EditTaskDialogProps> = ({
                           <Button
                             variant={"outline"}
                             className={cn(
-                              "justify-start text-left font-normal w-full",
-                              !field.value && "text-muted-foreground"
+                              "w-full justify-start text-left font-normal",
+                              !field.value && "text-muted-foreground",
                             )}
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -157,7 +157,7 @@ const EditTaskDialog: React.FC<EditTaskDialogProps> = ({
           >
             Update Task
             {form.formState.isSubmitting && (
-              <ReloadIcon className="animate-spin h-4 w-4 ml-2" />
+              <ReloadIcon className="ml-2 h-4 w-4 animate-spin" />
             )}
           </Button>
         </DialogFooter>

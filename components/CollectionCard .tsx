@@ -84,22 +84,22 @@ const CollectionCard = ({ collection }: Props) => {
               CollectionColors[collection.color as CollectionColor],
             )}
           >
-            <span className="text-white font-bold">{collection.name}</span>
+            <span className="font-bold text-white">{collection.name}</span>
             {!isOpen && <CaretDownIcon className="h-6 w-6" />}
             {isOpen && <CaretUpIcon className="h-6 w-6" />}
           </Button>
         </CollapsibleTrigger>
-        <CollapsibleContent className="flex rounded-b-md flex-col dark:bg-neutral-950 shadow-lg">
+        <CollapsibleContent className="flex flex-col rounded-b-md shadow-lg dark:bg-neutral-950">
           {tasks.length === 0 ? (
             <Button
               variant={"ghost"}
-              className="flex items-center justify-center gap-1 p-8 py-12 rounded-none"
+              className="flex items-center justify-center gap-1 rounded-none p-8 py-12"
               onClick={() => setShowCreateModal(true)}
             >
               <p>There are no task yet</p>
               <span
                 className={cn(
-                  "text-sm bg-clip-text text-transparent",
+                  "bg-clip-text text-sm text-transparent",
                   CollectionColors[collection.color as CollectionColor],
                 )}
               >
@@ -109,7 +109,7 @@ const CollectionCard = ({ collection }: Props) => {
           ) : (
             <>
               <Progress className="rounded-none" value={progress} />
-              <div className="flex flex-col gap-3 p-4 justify-between">
+              <div className="flex flex-col justify-between gap-3 p-4">
                 {tasks.map((task) => (
                   <TaskCard key={task.id} task={task} />
                 ))}
@@ -117,7 +117,7 @@ const CollectionCard = ({ collection }: Props) => {
             </>
           )}
           <Separator />
-          <footer className="h-[40px] px-4 p-[2px] text-xs text-neutral-500 flex justify-between items-center">
+          <footer className="flex h-[40px] items-center justify-between p-[2px] px-4 text-xs text-neutral-500">
             <p>Created at {collection.createdAt.toDateString()}</p>
             {isLoading ? (
               <div>Deleting ...</div>

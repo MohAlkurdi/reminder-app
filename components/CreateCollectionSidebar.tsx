@@ -90,7 +90,7 @@ const CreateCollectionSidebar = ({ open, onOpenChange }: Props) => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 flex flex-col"
+            className="flex flex-col space-y-4"
           >
             <FormField
               control={form.control}
@@ -117,13 +117,13 @@ const CreateCollectionSidebar = ({ open, onOpenChange }: Props) => {
                     <Select onValueChange={(color) => field.onChange(color)}>
                       <SelectTrigger
                         className={cn(
-                          `w-full h-8 text-white `,
-                          CollectionColors[field.value as CollectionColor]
+                          `h-8 w-full text-white `,
+                          CollectionColors[field.value as CollectionColor],
                         )}
                       >
                         <SelectValue
                           placeholder="Color"
-                          className="w-full h-8"
+                          className="h-8 w-full"
                         />
                       </SelectTrigger>
                       <SelectContent className="w-full">
@@ -132,8 +132,8 @@ const CreateCollectionSidebar = ({ open, onOpenChange }: Props) => {
                             key={color}
                             value={color}
                             className={cn(
-                              `w-full h-8 rounded-md my-1 text-white focus:text-white focus:font-bold focus:ring-2  ring-neutral-600 focus:ring-inset dark:focus:ring-white focus:px-8`,
-                              CollectionColors[color as CollectionColor]
+                              `my-1 h-8 w-full rounded-md text-white ring-neutral-600 focus:px-8 focus:font-bold  focus:text-white focus:ring-2 focus:ring-inset dark:focus:ring-white`,
+                              CollectionColors[color as CollectionColor],
                             )}
                           >
                             {color}
@@ -151,14 +151,14 @@ const CreateCollectionSidebar = ({ open, onOpenChange }: Props) => {
             />
           </form>
         </Form>
-        <div className="flex flex-col gap-3 mt-4">
+        <div className="mt-4 flex flex-col gap-3">
           <Separator />
           <Button
             variant={"outline"}
             onClick={form.handleSubmit(onSubmit)}
             className={cn(
               form.watch("color") &&
-                CollectionColors[form.getValues("color") as CollectionColor]
+                CollectionColors[form.getValues("color") as CollectionColor],
             )}
             disabled={form.formState.isSubmitting}
           >

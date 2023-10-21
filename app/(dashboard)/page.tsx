@@ -25,7 +25,7 @@ const WelcomeMsg = async () => {
     return "No user name found";
   }
   return (
-    <div className="flex w-full mb-12">
+    <div className="mb-12 flex w-full">
       <h1 className="text-4xl font-bold">
         Welcome,
         <br /> {user?.firstName}
@@ -36,10 +36,10 @@ const WelcomeMsg = async () => {
 
 const WelcomeMsgFallback = () => {
   return (
-    <div className="flex w-full mb-12">
+    <div className="mb-12 flex w-full">
       <h1 className="text-4xl font-bold">
-        <Skeleton className="w-[150px] h-[36px]" />
-        <Skeleton className="w-[150px] h-[36px]" />
+        <Skeleton className="h-[36px] w-[150px]" />
+        <Skeleton className="h-[36px] w-[150px]" />
       </h1>
     </div>
   );
@@ -75,7 +75,7 @@ const CollectionList = async () => {
     <>
       <CreateCollectionBtn />
 
-      <div className="flex flex-col gap-4 mt-6">
+      <div className="mt-6 flex flex-col gap-4">
         {collections.map((collection) => (
           <CollectionCard key={collection.id} collection={collection} />
         ))}

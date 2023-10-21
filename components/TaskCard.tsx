@@ -49,10 +49,10 @@ function TaskCard({ task }: { task: Task }) {
         task={task}
       />
 
-      <div className="flex gap-2 items-start">
+      <div className="flex items-start gap-2">
         <Checkbox
           id={task.id.toString()}
-          className="w-5 h-5"
+          className="h-5 w-5"
           checked={task.done}
           disabled={task.done || isLoading}
           onCheckedChange={() => {
@@ -65,8 +65,8 @@ function TaskCard({ task }: { task: Task }) {
         <label
           htmlFor={task.id.toString()}
           className={cn(
-            "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 decoration-1 dark:decoration-white",
-            task.done && "line-through"
+            "text-sm font-medium leading-none decoration-1 peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:decoration-white",
+            task.done && "line-through",
           )}
         >
           {task.content}
@@ -74,7 +74,7 @@ function TaskCard({ task }: { task: Task }) {
             <p
               className={cn(
                 "text-xs text-neutral-500 dark:text-neutral-400",
-                getExpirationColor(task.expiersAt)
+                getExpirationColor(task.expiersAt),
               )}
             >
               {format(task.expiersAt, "dd/MM/yyyy")}
@@ -82,7 +82,7 @@ function TaskCard({ task }: { task: Task }) {
           )}
         </label>
 
-        <div className="flex flex-grow gap-2 justify-end">
+        <div className="flex flex-grow justify-end gap-2">
           {isLoading ? (
             <div className="text-sm">Deleting ...</div>
           ) : (

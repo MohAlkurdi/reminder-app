@@ -78,8 +78,8 @@ const CreateTaskDialog = ({ open, setOpen, collection }: Props) => {
             Add task to collection
             <span
               className={cn(
-                "p-1 bg-clip-text text-transparent",
-                CollectionColors[collection.color as CollectionColor]
+                "bg-clip-text p-1 text-transparent",
+                CollectionColors[collection.color as CollectionColor],
               )}
             >
               {collection.name}
@@ -90,7 +90,7 @@ const CreateTaskDialog = ({ open, setOpen, collection }: Props) => {
         <div className="gap-4 py-4">
           <Form {...form}>
             <form
-              className="space-y-4 flex flex-col"
+              className="flex flex-col space-y-4"
               onSubmit={form.handleSubmit(onSubmit)}
             >
               <FormField
@@ -125,8 +125,8 @@ const CreateTaskDialog = ({ open, setOpen, collection }: Props) => {
                           <Button
                             variant={"outline"}
                             className={cn(
-                              "justify-start text-left font-normal w-full",
-                              !field.value && "text-muted-foreground"
+                              "w-full justify-start text-left font-normal",
+                              !field.value && "text-muted-foreground",
                             )}
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -156,15 +156,15 @@ const CreateTaskDialog = ({ open, setOpen, collection }: Props) => {
         <DialogFooter>
           <Button
             className={cn(
-              "w-full dark:text-white text-white",
-              CollectionColors[collection.color as CollectionColor]
+              "w-full text-white dark:text-white",
+              CollectionColors[collection.color as CollectionColor],
             )}
             onClick={form.handleSubmit(onSubmit)}
             disabled={form.formState.isSubmitting}
           >
             Add Task
             {form.formState.isSubmitting && (
-              <ReloadIcon className="animate-spin h-4 w-4 ml-2" />
+              <ReloadIcon className="ml-2 h-4 w-4 animate-spin" />
             )}
           </Button>
         </DialogFooter>
