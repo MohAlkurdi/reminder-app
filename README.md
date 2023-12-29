@@ -19,6 +19,12 @@ install project dependencies:
 pnpm i
 ```
 
+migrate the database
+
+```bash
+npx prisma db migrate dev
+```
+
 run the development server:
 
 ```bash
