@@ -6,6 +6,12 @@ clone the project:
 git clone https://github.com/MohAlkurdi/reminder-app.git
 ```
 
+Copy environment variable
+
+```bash
+cp .env.example .env
+```
+
 add your clerk credentials:
 
 ```
@@ -22,7 +28,7 @@ pnpm i
 migrate the database
 
 ```bash
-npx prisma db migrate dev
+npx prisma db push
 ```
 
 run the development server:
